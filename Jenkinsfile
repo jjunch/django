@@ -94,7 +94,7 @@ pipeline {
 
                     git commit -m "Update Django image to build ${BUILD_NUMBER}" || echo No changes to commit
 
-                    git push origin main
+                    git push origin HEAD:main
                     """
                 }
             }
