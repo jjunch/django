@@ -63,12 +63,10 @@ pipeline {
                             ]]
                         ])
                     }
-
-                    // yaml 파일 안의 image 태그를 현재 BUILD_NUMBER로 교체
+                    
                     bat """
                     powershell -Command ^
-                      "(Get-Content 'django/django-node1-deploy.yml') -replace 'image: jjunch/django:.*', 'image: jjunch/django:${BUILD_NUMBER}' | Set-Content 'django/django-node1-deploy.yml';" ^
-                      "(Get-Content 'django/django-node2-deploy.yml') -replace 'image: jjunch/django:.*', 'image: jjunch/django:${BUILD_NUMBER}' | Set-Content 'django/django-node2-deploy.yml';"
+                      "(Get-Content 'django/django-deploy.yml') -replace 'image: jjunch/django:.*', 'image: jjunch/django:${BUILD_NUMBER}' | Set-Content 'django/django-deploy.yml';"
                     """
 
                     // git 커밋 & 푸시
@@ -81,7 +79,7 @@ pipeline {
                         git status
                         git config user.name "jjunch"
                         git config user.email "hjc014069@gmail.com"
-                        git add django/django-node1-deploy.yml django/django-node2-deploy.yml
+                        git add django/django-deploy.yml
 
                         git commit -m "Update Django image to build ${BUILD_NUMBER}" || echo No changes to commit
 
